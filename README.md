@@ -1,10 +1,14 @@
-Dưới đây là một ví dụ về kiểm thử đơn vị (Unit Testing) trong Java sử dụng JUnit, một thư viện phổ biến cho việc kiểm thử.
+**My First unit testing with Java**
+Dưới đây là một ví dụ về kiểm thử đơn vị (Unit Testing) trong Java sử dụng **JUnit**, một thư viện phổ biến cho việc kiểm thử.
+
 ### Mô tả bài toán
 Giả sử bạn có một lớp `Calculator` với các phương thức cộng (`add`) và nhân (`multiply`). Bạn muốn viết kiểm thử đơn vị để đảm bảo rằng các phương thức này hoạt động chính xác.
 
 ---
 
-**1. Lớp chính `Calculator`**
+### 1. Lớp chính `Calculator`
+
+```java
 public class Calculator {
     public int add(int a, int b) {
         return a + b;
@@ -18,7 +22,9 @@ public class Calculator {
 
 ---
 
- **2. Lớp kiểm thử `CalculatorTest`**
+### 2. Lớp kiểm thử `CalculatorTest`
+
+```java
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -82,5 +88,5 @@ dependencies {
 - Nếu có lỗi trong logic (ví dụ: phép cộng bị sai), test sẽ **failed**, giúp bạn nhanh chóng xác định vấn đề.
 
 ---
-
-Ví dụ này minh họa cách viết và chạy kiểm thử đơn vị đơn giản trong Java. Nếu bạn cần thêm ví dụ phức tạp hơn, tôi rất sẵn lòng hỗ trợ! 😊
+### 5. Kết quả thực tế
+![image](https://github.com/user-attachments/assets/3724c23e-900e-46ea-8781-7c957d5f4782)
