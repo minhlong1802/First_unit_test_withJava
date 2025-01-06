@@ -1,6 +1,6 @@
-## My First unit testing with Java
+## My first unit testing with Java
 
-Dưới đây là một ví dụ về kiểm thử đơn vị (Unit Testing) trong Java sử dụng **JUnit**, một thư viện phổ biến cho việc kiểm thử.
+Dưới đây là một ví dụ về kiểm thử đơn vị (unit testing) trong Java sử dụng **JUnit**, một thư viện phổ biến cho việc kiểm thử.
 
 ### Mô tả bài toán
 Giả sử bạn có một lớp `Calculator` với các phương thức cộng (`add`) và nhân (`multiply`). Bạn muốn viết kiểm thử đơn vị để đảm bảo rằng các phương thức này hoạt động chính xác.
