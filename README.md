@@ -91,3 +91,7 @@ dependencies {
 ---
 ### 5. Kết quả thực tế
 ![image](https://github.com/user-attachments/assets/3724c23e-900e-46ea-8781-7c957d5f4782)
+
+---
+### 6. Tham khảo
+[Tại đây](https://chatgpt.com/share/677b5670-821c-8000-a050-c010f045b93b)
