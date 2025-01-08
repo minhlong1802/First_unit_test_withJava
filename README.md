@@ -26,11 +26,6 @@ public class Calculator {
 ### 2. Lớp kiểm thử `CalculatorTest`
 
 ```java
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class CalculatorTest {
     private final Calculator calculator = new Calculator();
@@ -60,22 +55,32 @@ class CalculatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "5, 3, 15",
-            "-5, -3, 15",
-            "-5, 3, -15",
-            "1000, 2000, 2000000"
+            "5, 3, 15",      // Nhân hai số dương
+            "-5, -3, 15",    // Nhân hai số âm
+            "-5, 3, -15",    // Nhân một số âm và một số dương
+            "0, 5, 0",       // Nhân với 0
+            "5, 0, 0"        // Nhân với 0 ở phía khác
     })
     void testMultiply(int a, int b, int expected) {
         assertEquals(expected, calculator.multiply(a, b), "Multiplication test failed");
     }
 
     @Test
-    void testEdgeCases() {
-        assertEquals(Integer.MAX_VALUE, calculator.add(Integer.MAX_VALUE, 0), "Addition with MAX_VALUE failed");
-        assertEquals(Integer.MIN_VALUE, calculator.add(Integer.MIN_VALUE, 0), "Addition with MIN_VALUE failed");
+    void testMultiplyWithLargeNumbers() {
+        assertEquals(2000000, calculator.multiply(1000, 2000), "Large number multiplication failed");
+    }
 
+    @Test
+    void testMultiplyWithEdgeCases() {
+        // Kiểm tra biên
+        assertEquals(Integer.MIN_VALUE, calculator.multiply(Integer.MIN_VALUE, 1), 
+            "Multiplication with MIN_VALUE failed");
+        assertEquals(Integer.MAX_VALUE, calculator.multiply(Integer.MAX_VALUE, 1), 
+            "Multiplication with MAX_VALUE failed");
+
+        // Kiểm tra tràn số
         assertThrows(ArithmeticException.class, () -> {
-            int result = Math.addExact(Integer.MAX_VALUE, 1);
+            int result = Math.multiplyExact(Integer.MAX_VALUE, 2);
         }, "Expected overflow did not occur");
     }
 }
@@ -125,7 +130,8 @@ dependencies {
 
 ---
 ### 5. Kết quả thực tế
-![image](https://github.com/user-attachments/assets/3724c23e-900e-46ea-8781-7c957d5f4782)
+![image](https://github.com/user-attachments/assets/d1132d45-60c3-4412-bd5b-3635dd935d92)
+
 
 ---
 ### 6. Tham khảo
