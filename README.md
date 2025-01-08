@@ -75,7 +75,6 @@ class CalculatorTest {
         assertEquals(Integer.MIN_VALUE, calculator.add(Integer.MIN_VALUE, 0), "Addition with MIN_VALUE failed");
 
         assertThrows(ArithmeticException.class, () -> {
-            // If needed, add logic to handle potential overflow
             int result = Math.addExact(Integer.MAX_VALUE, 1);
         }, "Expected overflow did not occur");
     }
