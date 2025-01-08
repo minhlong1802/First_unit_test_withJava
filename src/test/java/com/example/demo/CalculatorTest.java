@@ -34,23 +34,32 @@ class CalculatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "5, 3, 15",
-            "-5, -3, 15",
-            "-5, 3, -15",
-            "1000, 2000, 2000000"
+            "5, 3, 15",      // Nhân hai số dương
+            "-5, -3, 15",    // Nhân hai số âm
+            "-5, 3, -15",    // Nhân một số âm và một số dương
+            "0, 5, 0",       // Nhân với 0
+            "5, 0, 0"        // Nhân với 0 ở phía khác
     })
     void testMultiply(int a, int b, int expected) {
         assertEquals(expected, calculator.multiply(a, b), "Multiplication test failed");
     }
 
     @Test
-    void testEdgeCases() {
-        assertEquals(Integer.MAX_VALUE, calculator.add(Integer.MAX_VALUE, 0), "Addition with MAX_VALUE failed");
-        assertEquals(Integer.MIN_VALUE, calculator.add(Integer.MIN_VALUE, 0), "Addition with MIN_VALUE failed");
+    void testMultiplyWithLargeNumbers() {
+        assertEquals(2000000, calculator.multiply(1000, 2000), "Large number multiplication failed");
+    }
 
+    @Test
+    void testMultiplyWithEdgeCases() {
+        // Kiểm tra biên
+        assertEquals(Integer.MIN_VALUE, calculator.multiply(Integer.MIN_VALUE, 1),
+                "Multiplication with MIN_VALUE failed");
+        assertEquals(Integer.MAX_VALUE, calculator.multiply(Integer.MAX_VALUE, 1),
+                "Multiplication with MAX_VALUE failed");
+
+        // Kiểm tra tràn số
         assertThrows(ArithmeticException.class, () -> {
-            // If needed, add logic to handle potential overflow
-            int result = Math.addExact(Integer.MAX_VALUE, 1);
+            int result = Math.multiplyExact(Integer.MAX_VALUE, 2);
         }, "Expected overflow did not occur");
     }
 }
