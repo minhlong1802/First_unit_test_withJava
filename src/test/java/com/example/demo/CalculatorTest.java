@@ -34,11 +34,13 @@ class CalculatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "5, 3, 15",      // Nhân hai số dương
-            "-5, -3, 15",    // Nhân hai số âm
-            "-5, 3, -15",    // Nhân một số âm và một số dương
-            "0, 5, 0",       // Nhân với 0
-            "5, 0, 0"        // Nhân với 0 ở phía khác
+            "5, 3, 15",          // Nhân hai số dương
+            "-5, -3, 15",        // Nhân hai số âm
+            "-5, 3, -15",        // Nhân một số âm và một số dương
+            "0, 5, 0",           // Nhân với 0
+            "5, 0, 0",           // Nhân với 0 ở phía khác
+            "2147483647, 1, 2147483647", // Nhân với Integer.MAX_VALUE
+            "-2147483648, 1, -2147483648" // Nhân với Integer.MIN_VALUE
     })
     void testMultiply(int a, int b, int expected) {
         assertEquals(expected, calculator.multiply(a, b), "Multiplication test failed");
@@ -62,5 +64,17 @@ class CalculatorTest {
             int result = Math.multiplyExact(Integer.MAX_VALUE, 2);
         }, "Expected overflow did not occur");
     }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1000000000, 2000000000, ArithmeticException", // Giá trị quá lớn gây tràn số
+            "-1000000000, -2000000000, ArithmeticException" // Giá trị âm lớn gây tràn số
+    })
+    void testMultiplyWithOverflow(int a, int b, String expectedException) {
+        assertThrows(ArithmeticException.class, () -> {
+            int result = Math.multiplyExact(a, b);
+        }, "Expected overflow did not occur");
+    }
 }
+
 
