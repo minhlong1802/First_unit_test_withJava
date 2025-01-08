@@ -55,11 +55,13 @@ class CalculatorTest {
 
     @ParameterizedTest
     @CsvSource({
-            "5, 3, 15",      // Nhân hai số dương
-            "-5, -3, 15",    // Nhân hai số âm
-            "-5, 3, -15",    // Nhân một số âm và một số dương
-            "0, 5, 0",       // Nhân với 0
-            "5, 0, 0"        // Nhân với 0 ở phía khác
+            "5, 3, 15",          // Nhân hai số dương
+            "-5, -3, 15",        // Nhân hai số âm
+            "-5, 3, -15",        // Nhân một số âm và một số dương
+            "0, 5, 0",           // Nhân với 0
+            "5, 0, 0",           // Nhân với 0 ở phía khác
+            "2147483647, 1, 2147483647", // Nhân với Integer.MAX_VALUE
+            "-2147483648, 1, -2147483648" // Nhân với Integer.MIN_VALUE
     })
     void testMultiply(int a, int b, int expected) {
         assertEquals(expected, calculator.multiply(a, b), "Multiplication test failed");
@@ -73,14 +75,25 @@ class CalculatorTest {
     @Test
     void testMultiplyWithEdgeCases() {
         // Kiểm tra biên
-        assertEquals(Integer.MIN_VALUE, calculator.multiply(Integer.MIN_VALUE, 1), 
-            "Multiplication with MIN_VALUE failed");
-        assertEquals(Integer.MAX_VALUE, calculator.multiply(Integer.MAX_VALUE, 1), 
-            "Multiplication with MAX_VALUE failed");
+        assertEquals(Integer.MIN_VALUE, calculator.multiply(Integer.MIN_VALUE, 1),
+                "Multiplication with MIN_VALUE failed");
+        assertEquals(Integer.MAX_VALUE, calculator.multiply(Integer.MAX_VALUE, 1),
+                "Multiplication with MAX_VALUE failed");
 
         // Kiểm tra tràn số
         assertThrows(ArithmeticException.class, () -> {
             int result = Math.multiplyExact(Integer.MAX_VALUE, 2);
+        }, "Expected overflow did not occur");
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+            "1000000000, 2000000000, ArithmeticException", // Giá trị quá lớn gây tràn số
+            "-1000000000, -2000000000, ArithmeticException" // Giá trị âm lớn gây tràn số
+    })
+    void testMultiplyWithOverflow(int a, int b, String expectedException) {
+        assertThrows(ArithmeticException.class, () -> {
+            int result = Math.multiplyExact(a, b);
         }, "Expected overflow did not occur");
     }
 }
@@ -130,8 +143,7 @@ dependencies {
 
 ---
 ### 5. Kết quả thực tế
-![image](https://github.com/user-attachments/assets/d1132d45-60c3-4412-bd5b-3635dd935d92)
-
+![image](https://github.com/user-attachments/assets/cd03e616-091e-46a8-99dc-97b02d240d88)
 
 ---
 ### 6. Tham khảo
